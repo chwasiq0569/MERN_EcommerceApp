@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -51,6 +52,19 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true })
 
+//.virtual function will help us to set the hashed password
+userSchema.virtual('password').set(function(){
+    this.hash_password = bcrypt.hashSync(this.password, 10);
+})
+//.methods function add instance method to each doc
+userSchema.methods = {
+    authenticate: function(){
+       return bcrypt.compareSync(password, this.hash_password); // will return true or false
+    }
+}
+
 const User = mongoose.Model('User', userSchema);
+
+
 
 module.exports = User;
