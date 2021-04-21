@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon src/index.server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
-    "mongoose": "^5.12.4"
+    "mongoose": "^5.12.4",
+    "nodemon": "^2.0.7"
   }
 }
