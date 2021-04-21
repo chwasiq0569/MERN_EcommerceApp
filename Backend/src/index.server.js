@@ -7,6 +7,7 @@ const app = express();
 
 dotenv.config();
 
+mongoose.set('useCreateIndex', true);
 mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.zq4mb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
     useNewUrlParser : true,
     useUnifiedTopology : true
