@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 module.exports.signup = (req, res) => {
     User.findOne({
@@ -32,4 +33,25 @@ module.exports.signup = (req, res) => {
         message: "Something Went Wrong while Finding or Creating User!!"
     }))
     
+}
+
+module.exports.signin = (req, res) => {
+    User.findOne({email: req.body.email}).then((user) => {
+        if(user){
+            if(user.authenticate(req.body.password)){
+                var token = jwt.sign({ id: user.id }, process.env.JWT_SECURITY_KEY, { expiresIn: '1h' });
+                const { _id, firstName, lastName, email, role, fullName } = user;
+                res.status(201).json({
+                    token,
+                    _id, firstName, lastName, email, role, fullName
+                })
+            } 
+            else res.status(400).json({
+                message: "Invalid Password"
+            })
+        }
+        else res.status(400).json({
+            message: "Invalid Email"
+        })
+    })    
 }
