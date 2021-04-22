@@ -1,3 +1,5 @@
 /Backend/node_modules
 
 /Backend/.env
+
+/Frontend/admin-app/node_modules
