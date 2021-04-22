@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin/auth");
 const app = express();
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({
     extended: true
   }));
 app.use("/api", authRoutes)
+app.use("/api", adminRoutes)
 
 // mongodb+srv://admin:<password>@ecommrce.abkdv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
