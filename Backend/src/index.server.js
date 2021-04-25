@@ -14,10 +14,10 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO
     useUnifiedTopology : true
 }).then(() => console.log("DB CONNECTED")).catch((err) => console.log("Error: ", err))
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-  }));
+app.use(express.json());
+// app.use(bodyParser.urlencoded({
+//     extended: true
+//   }));
 app.use("/api", authRoutes)
 app.use("/api", adminRoutes)
 
