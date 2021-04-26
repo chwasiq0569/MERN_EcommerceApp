@@ -41,11 +41,13 @@ module.exports.signin = (req, res) => {
     User.findOne({email: req.body.email}).then((user) => {
         if(user){
             if(user.authenticate(req.body.password)){
-                var token = jwt.sign({ id: user.id }, process.env.JWT_SECURITY_KEY, { expiresIn: '1h' });
+                var token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECURITY_KEY, { expiresIn: '1h' });
                 const { _id, firstName, lastName, email, role, fullName } = user;
                 res.status(201).json({
                     token ,
-                    _id, firstName, lastName, email, role, fullName
+                    role
+                    // ,
+                    // _id, firstName, lastName, email, role, fullName
                 })
             } 
             else res.status(400).json({
