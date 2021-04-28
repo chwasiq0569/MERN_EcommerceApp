@@ -21,7 +21,7 @@ module.exports.requireSignIn = (req, res, next) => {
 // }
 
 module.exports.adminMiddleware = (req, res, next) => {
-    console.log(req.user)
+    // console.log(req.user)
     if(req.user.role !== 'admin'){
         return res.status(400).json({msg: "Access Denied"})
     }
