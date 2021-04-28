@@ -12,13 +12,13 @@ module.exports.requireSignIn = (req, res, next) => {
     next();
 }
 
-// module.exports.userMiddleware = (req, res, next) => {
-//     const token = req.headers.authorization.split(" ")[1];
-//     const user = jwt.verify(token, process.env.JWT_SECURITY_KEY);
-//     req.user = user;
+module.exports.userMiddleware = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = jwt.verify(token, process.env.JWT_SECURITY_KEY);
+    req.user = user;
  
-//     next();
-// }
+    next();
+}
 
 module.exports.adminMiddleware = (req, res, next) => {
     // console.log(req.user)
