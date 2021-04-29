@@ -8,6 +8,8 @@ const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const cartRoutes = require("./routes/cart");
 const app = express();
+const path = require('path')
+
 
 dotenv.config();
 
@@ -18,6 +20,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO
 }).then(() => console.log("DB CONNECTED")).catch((err) => console.log("Error: ", err))
 
 app.use(express.json());
+app.use('/public', express.static(path.join(__dirname, 'uploads')));
 // app.use(bodyParser.urlencoded({
 //     extended: true
 //   }));

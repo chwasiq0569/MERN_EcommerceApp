@@ -13,7 +13,8 @@ const categorySchema = new mongoose.Schema({
     },
     parentId:{
         type: String
-    }
+    },
+    categoryImg: { type: String }
 }, { timestamps: true })
 
 const Category = mongoose.model('Category', categorySchema);
