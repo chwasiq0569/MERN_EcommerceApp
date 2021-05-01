@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Home from './container/Home/Home';
 import SignIn from './container/SignIn/SignIn';
 import SignUp from './container/SignUp/SignUp';
+import PrivateRoute from './components/HOC/PrivateRoute';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       </Layout> */}
       <Router>
         <Switch>
-          <Route exact path='/' component={Home} />
+          <PrivateRoute exact path="/" component={Home} />
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
         </Switch>

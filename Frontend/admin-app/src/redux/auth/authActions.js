@@ -1,9 +1,8 @@
 import axios from '../../helpers/axios';
 // import axios from 'axios';
-import { LOGIN_REQUEST, LOGIN_SUCCESS } from './authTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './authTypes';
 
 export const loginRequest = (user) => {
-        console.log('user: ', user)
         return {
             type: LOGIN_REQUEST,
             payload: {
@@ -11,24 +10,24 @@ export const loginRequest = (user) => {
             }
         }
 }
-export const loginSuccess = (user) => {
-        console.log('user: ', user)
+export const loginSuccess = (token, user) => {
         return {
             type: LOGIN_SUCCESS,
             payload: {
-                ...user
+                token,
+                user
             }
         }
 }
-// export const loginFailure = (user) => {
-//         console.log('user: ', user)
-//         return {
-//             type: LOGIN_SUCCESS,
-//             payload: {
-//                 ...user
-//             }
-//         }
-// }
+export const loginFailure = (error) => {
+        console.log('error: ', error)
+        return {
+            type: LOGIN_FAILURE,
+            payload: {
+                ...error
+            }
+        }
+}
 
 export const loggingInRequest = (user) => {
     return async (dispatch) => {
@@ -36,6 +35,14 @@ export const loggingInRequest = (user) => {
            ...user
         })
         dispatch(loginRequest(res))
+        if(res.status === 201 || res.status === 200){
+            const { token, user } = res.data;
+            localStorage.setItem('token', token);
+            dispatch(loginSuccess(token, user))
+        }
+        else{
+                dispatch(loginFailure(res.data.error))
+        }
     }
 }
 

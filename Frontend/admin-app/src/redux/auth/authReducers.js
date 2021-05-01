@@ -1,11 +1,35 @@
-import { LOGIN_REQUEST } from './authTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './authTypes';
 const initialCakeState = {
-    name: "Wasiq"
+    token: null,
+    user: {
+        firstname: '',
+        lastname: '',
+        email: '',
+        picture: ''
+    },
+    authenticate: false,
+    authenticating: false
 }
 const authReducer = (state = initialCakeState, action) => {
+      console.log(action)
       switch(action.type){
           case LOGIN_REQUEST:
-              return action.payload
+              return {
+                ...state,  
+                authenticating: true
+            }
+          case LOGIN_SUCCESS:
+              return {
+                ...state,  
+                token: action.payload.token,
+                user: action.payload.user,
+                authenticate: true,
+                authenticating: false
+            }
+
+          case LOGIN_FAILURE:
+              return action.payload  
+              
           default:
               return state;    
       }

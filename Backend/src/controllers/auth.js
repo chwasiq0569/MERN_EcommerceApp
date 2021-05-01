@@ -45,9 +45,7 @@ module.exports.signin = (req, res) => {
                 const { _id, firstName, lastName, email, role, fullName } = user;
                 res.status(201).json({
                     token ,
-                    role
-                    // ,
-                    // _id, firstName, lastName, email, role, fullName
+                    user
                 })
             } 
             else res.status(400).json({

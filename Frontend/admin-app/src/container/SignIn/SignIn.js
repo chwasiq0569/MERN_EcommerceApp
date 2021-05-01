@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Layout from "../../components/Layout/Layout";
 import Input from './../../components/UI/Input/Input';
-import {connect, useDispatch} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {loginRequest, loggingInRequest} from './../../redux/auth/authActions';
+import { Redirect } from 'react-router-dom';
 
 const SignIn = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const auth = useSelector((state) => state.auth)
+  console.log("AUTH", auth)
   const dispatch = useDispatch();
 
   const userLogin = (e) => {
@@ -21,7 +23,10 @@ const SignIn = (props) => {
       password: password
     }
     dispatch(loggingInRequest(user))
+
   }
+
+
 
   return (
     <Layout>
