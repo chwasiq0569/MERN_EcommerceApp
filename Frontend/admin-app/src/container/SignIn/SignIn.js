@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import Layout from "../../components/Layout/Layout";
 import Input from './../../components/UI/Input/Input';
 import {connect, useDispatch} from 'react-redux';
-import loginRequest from './../../redux/auth/authActions';
+import {loginRequest, loggingInRequest} from './../../redux/auth/authActions';
 
 const SignIn = (props) => {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -13,10 +17,10 @@ const SignIn = (props) => {
     e.preventDefault();
     console.log("CLICKED")
     const user = {
-      email: 'wasiq@gmail.com',
-      password: "123456"
+      email: email,
+      password: password
     }
-    dispatch(loginRequest(user))
+    dispatch(loggingInRequest(user))
   }
 
   return (
@@ -29,16 +33,16 @@ const SignIn = (props) => {
                   label="Email"
                   type="email"
                   placeholder="Email"
-                  value=""
-                  onChange={() => {}}
+                  value={email}
+                  onChange={(e) => {setEmail(e.target.value)}}
            />
 
               <Input
                   label="Password"
                   type="password"
                   placeholder="Password"
-                  value=""
-                  onChange={() => {}}
+                  value={password}
+                  onChange={(e) => {setPassword(e.target.value)}}
                 />
              
               <Button variant="primary" type="submit">
